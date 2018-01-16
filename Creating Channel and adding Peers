@@ -1,4 +1,5 @@
-The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virutal machines with the following components deployed. 
+The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virutal machines with the 
+following components deployed. 
 1. CA, hyperledger/fabric-ca:x86_64-1.0.1
 2. Orderer, hyperledger/fabric-orderer:x86_64-1.0.1
 3. Peers (2 nodes - peer0 and peer1), hyperledger/fabric-peer:x86_64-1.0.1
@@ -7,7 +8,8 @@ The template deployment process does not create any channel, so this doc outline
 1. Create a channel 
 2. Add both the peers to the same channel 
 
-As a pre-requisite, we should have deployed the Hyperledger Fabric template from the Azure Market Place and have the nodes running. In case you need to deploy it, please refer to this doc - https://gallery.technet.microsoft.com/Hyperledger-Fabric-Single-2324cecb 
+As a pre-requisite, we should have deployed the Hyperledger Fabric template from the Azure Market Place and have the nodes running. 
+In case you need to deploy it, please refer to this doc - https://gallery.technet.microsoft.com/Hyperledger-Fabric-Single-2324cecb 
 
 Step 1 - Creating a Channel 
 
