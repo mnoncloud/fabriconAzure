@@ -18,7 +18,7 @@ ssh azureuser@<Your IP Address> -p 3002
 docker ps -a
 
 3. Stop the peer 
-docker stop <containername>
+Ydocker stop <containername>
 
 4. Restart the peer using the following commands
 
@@ -90,4 +90,8 @@ export CORE_PEER_MSPCONFIGPATH=/crypto-config/peerOrganizations/org1.example.com
 Joining the peer to the channel:
 peer channel join -b mychannel.block -o <your-prefix>-orderer0:7050
 
+Validate that the peers have joined the channel:
+peer channel list 
+
+This completes the process of creating a channel and joining the two peers to the channel. 
 
