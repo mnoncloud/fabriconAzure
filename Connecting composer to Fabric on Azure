@@ -1,0 +1,31 @@
+A lot of people exploring Fabric would want to connect composer to the fabric to quickly build, deploy and manage their businsess networks. This doc provides a step-by-step guide to prepare the VM with the composer and build the connectivity to the Fabric running on Azure. 
+
+Step 1 - Create a VM within the same VNET 
+
+Choose the Operating System preferably the same version as the Fabric (Ubuntu 16.04 LTS) and ensure that the VM is created within the same resource group, location and VNET as the fabric VMs. 
+The size of the VM is for you to choose but based on recomendation it should have at least close to 4 GB RAM. 
+
+Step 2 - Install the composer components 
+
+Install the pre-requisites 
+pre-requisites.sh 
+
+Install the composer CLI, this is the core component of composer 
+sudo npm install -g composer-cli
+    
+sudo npm install -g composer-rest-server
+
+sudo npm install -g generator-hyperledger-composer
+
+sudo npm install -g yo
+
+Step 3 - Build a network 
+
+
+
+Step 4 - Build the connection profile 
+Copy crypto material from the CA node to the composer 
+use the createPeerAdmin.sh file to create the network card 
+remember to change the path of the cert and keystore and also replace filename 
+Step 5 - Deploy the netowrk on Fabric 
+Step 6 - Communicate with the business network 
