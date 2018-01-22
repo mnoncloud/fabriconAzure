@@ -23,7 +23,7 @@ docker ps -a
 
 docker run --rm -it --name CLI -v $HOME/crypto-config:/crypto-config \
 -v $HOME/channel.tx:/channel.tx \
-hyperledger/fabric-peer:x86_64-1.0.1 /bin/bash
+hyperledger/fabric-peer:x86_64-1.0.1 
 
 5. Creating the channel 
 
