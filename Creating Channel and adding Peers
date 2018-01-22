@@ -19,36 +19,19 @@ ssh azureuser@<Your IP Address> -p 3002
 2. Verify that the peer has been started 
 docker ps -a
 
-3. Stop the peer 
-Ydocker stop <containername>
+3. Start a CLI instance using the following command:
 
-4. Restart the peer using the following commands
-
-Setting the environment variables:
-PEER_PREFIX="<your-prefix>-peer"
-NODE_INDEX="0"
-PEER_ORG_DOMAIN="org1.example.com" 
-ORDERER_ORG_DOMAIN="example.com"
-FABRIC_VERSION="x86_64-1.0.1"
-
-Starthing the peer:
-docker run -d --restart=always -p 7051:7051 -p 7053:7053 \
--e CORE_PEER_ID=${PEER_PREFIX}${NODE_INDEX}.${PEER_ORG_DOMAIN} \
--e CORE_PEER_LOCALMSPID=Org1MSP \
--e CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock \
--v /var/run:/host/var/run \
--v $HOME/configtx.yaml:/etc/hyperledger/fabric/configtx.yaml \
--v $HOME/crypto-config:/crypto-config \
--v $HOME/channel.tx:/channel.tx \     
--v $HOME/crypto-config/peerOrganizations/${PEER_ORG_DOMAIN}/peers/${PEER_PREFIX}${NODE_INDEX}.${PEER_ORG_DOMAIN}/msp:/etc/hyperledger/fabric/msp \
-hyperledger/fabric-peer:${FABRIC_VERSION} peer node start --peer-defaultchain=false || unsuccessful_exit "Failed to start peer" 
+docker run --rm -it --name CLI -v $HOME/crypto-config:/crypto-config \
+-v $HOME/channel.tx:/channel.tx \
+hyperledger/fabric-peer:x86_64-1.0.1 /bin/bash
 
 5. Creating the channel 
 
 Verify the container is up and the peer is running 
 
-Get into the peer 
-docker exec -it <container-name> /bin/bash 
+Get into the CLI instance: 
+
+docker exec -it CLI /bin/bash 
 
 Set the environment variables:
 export CORE_PEER_ADDRESS=<your-prefix>-peer0:7051
