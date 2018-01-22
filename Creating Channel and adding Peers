@@ -1,3 +1,4 @@
+
 "The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virutal machines with the 
 following components deployed. 
 1. CA, hyperledger/fabric-ca:x86_64-1.0.1
@@ -82,3 +83,8 @@ Validate that the peers have joined the channel:
 
 This completes the process of creating a channel and joining the two peers to the channel. 
 
+Note: 
+1. The prefix can be obtained from the output of the template deployments. Select Resource group, Deployments and then click on 
+the first deployment to see the outputs. 
+2. Copying the commands split into multiple lines may give errors at times, preferably copy each line and then paste into your ssh 
+window to avoid errors. "\" is the line continution character. 
