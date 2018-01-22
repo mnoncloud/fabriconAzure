@@ -21,7 +21,7 @@ docker ps -a
 
 3. Start a CLI instance using the following command:
 
-  docker run --rm -it --name CLI -v $HOME/crypto-config:/crypto-config \
+  docker run -d --name CLI -v $HOME/crypto-config:/crypto-config \
   -v $HOME/channel.tx:/channel.tx \
   hyperledger/fabric-peer:x86_64-1.0.1 
 
