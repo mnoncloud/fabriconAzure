@@ -14,69 +14,71 @@ In case you need to deploy it, please refer to this doc - https://gallery.techne
 Step 1 - Creating a Channel 
 
 1. SSH into the peer0. You should be able to find the IP address from the portal and the port is 3002 
-ssh azureuser@<Your IP Address> -p 3002 
+  ssh azureuser@<Your IP Address> -p 3002 
 
 2. Verify that the peer has been started 
 docker ps -a
 
 3. Start a CLI instance using the following command:
 
-docker run --rm -it --name CLI -v $HOME/crypto-config:/crypto-config \
--v $HOME/channel.tx:/channel.tx \
-hyperledger/fabric-peer:x86_64-1.0.1 
+  docker run --rm -it --name CLI -v $HOME/crypto-config:/crypto-config \
+  -v $HOME/channel.tx:/channel.tx \
+  hyperledger/fabric-peer:x86_64-1.0.1 
 
-5. Creating the channel 
+4. Creating the channel 
 
 Verify the container is up and the peer is running 
 
 Get into the CLI instance: 
 
-docker exec -it CLI /bin/bash 
+  docker exec -it CLI /bin/bash 
 
 Set the environment variables:
-export CORE_PEER_ADDRESS=<your-prefix>-peer0:7051
-export CORE_PEER_LOCALMSPID="Org1MSP"
-export CORE_PEER_MSPCONFIGPATH=/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+  export CORE_PEER_ADDRESS=<your-prefix>-peer0:7051
+  export CORE_PEER_LOCALMSPID="Org1MSP"
+  export CORE_PEER_MSPCONFIGPATH=/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
 Create the channel, we will use the name "mychannel", you could replace it with any other name
-peer channel create -o <your-prefix>-orderer0:7050 -c mychannel -f channel.tx
+
+  peer channel create -o <your-prefix>-orderer0:7050 -c mychannel -f channel.tx
+
 this will create the genesis block generally the name of the file will be channelname.block, so in our case it is mychannel.block
 
-6. Join this peer to the channel:
-peer channel join -b mychannel.block
+5. Join this peer to the channel:
+  peer channel join -b mychannel.block
 
-7. Copy the genesis block to the host outside the container 
+6. Copy the genesis block to the host outside the container 
 Exit to the host VM 
-exit 
+  exit 
 Copy the file from container to the host 
-docker cp <container-name>:/mychannel.block mychannel.block 
+  docker cp <container-name>:/mychannel.block mychannel.block 
 
 Step 2 - Adding another Peer to the channel 
 
 1. SSH into the peer1. You should be able to find the IP address from the portal and the port is 3002 
-ssh azureuser@<Your IP Address> -p 3003 
+  ssh azureuser@<Your IP Address> -p 3003 
 
 2. Verify that the peer has been started 
-docker ps -a
+  docker ps -a
 
 3. Copy the genesis block from peer0 to peer1 
-scp -o StrictHostKeyChecking=no -r "<your-prefix>-peer0:~/mychannel.block" .  || unsuccessful_exit "Failed to copy file" 
-docker cp mychannel.block <container-name>:/mychannel.block
+  scp -o StrictHostKeyChecking=no -r "<your-prefix>-peer0:~/mychannel.block" .  || unsuccessful_exit "Failed to copy file" 
+  docker cp mychannel.block <container-name>:/mychannel.block
 
 Get into the peer 
-docker exec -it <container-name> /bin/bash 
+  docker exec -it <container-name> /bin/bash 
 
 4. Join the peer to the channel 
 Setting the environment variables:
-export CORE_PEER_ADDRESS=<your-prefix>-peer1:7051
-export CORE_PEER_LOCALMSPID="Org1MSP"
-export CORE_PEER_MSPCONFIGPATH=/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
+  export CORE_PEER_ADDRESS=<your-prefix>-peer1:7051
+  export CORE_PEER_LOCALMSPID="Org1MSP"
+  export CORE_PEER_MSPCONFIGPATH=/crypto-config/peerOrganizations/org1.example.com/users/Admin@org1.example.com/msp
 
 Joining the peer to the channel:
-peer channel join -b mychannel.block -o <your-prefix>-orderer0:7050
+  peer channel join -b mychannel.block -o <your-prefix>-orderer0:7050
 
 Validate that the peers have joined the channel:
-peer channel list 
+  peer channel list 
 
 This completes the process of creating a channel and joining the two peers to the channel. 
 
