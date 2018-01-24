@@ -45,31 +45,13 @@ Create the channel, we will use the name "mychannel", you could replace it with 
 
 this will create the genesis block generally the name of the file will be channelname.block, so in our case it is mychannel.block
 
-5. Join this peer to the channel:
+5. Join the Peer0 to the channel:
   peer channel join -b mychannel.block
-
-6. Copy the genesis block to the host outside the container 
-Exit to the host VM 
-  exit 
-Copy the file from container to the host 
-  docker cp <container-name>:/mychannel.block mychannel.block 
 
 Step 2 - Adding another Peer to the channel 
 
-1. SSH into the peer1. You should be able to find the IP address from the portal and the port is 3002 
-  ssh azureuser@<Your IP Address> -p 3003 
+1. Join the Peer1 to the channel 
 
-2. Verify that the peer has been started 
-  docker ps -a
-
-3. Copy the genesis block from peer0 to peer1 
-  scp -o StrictHostKeyChecking=no -r "<your-prefix>-peer0:~/mychannel.block" .  || unsuccessful_exit "Failed to copy file" 
-  docker cp mychannel.block <container-name>:/mychannel.block
-
-Get into the peer 
-  docker exec -it <container-name> /bin/bash 
-
-4. Join the peer to the channel 
 Setting the environment variables:
   export CORE_PEER_ADDRESS=<your-prefix>-peer1:7051
   export CORE_PEER_LOCALMSPID="Org1MSP"
@@ -79,7 +61,20 @@ Joining the peer to the channel:
   peer channel join -b mychannel.block -o <your-prefix>-orderer0:7050
 
 Validate that the peers have joined the channel:
+
+1. SSH into Peer0 
+  ssh azureuser@<Your IP Address> -p 3002 
+  docker ps --format "{{.Names}}"
+  docker exec -it <container-name> /bin/bash 
   peer channel list 
+  
+2. SSH into Peer0 
+  ssh azureuser@<Your IP Address> -p 3003 
+  docker ps --format "{{.Names}}"
+  docker exec -it <container-name> /bin/bash 
+  peer channel list 
+  
+You should find the same channel -"mychannel" name as a result of these commands in the two peers. 
 
 This completes the process of creating a channel and joining the two peers to the channel. 
 
