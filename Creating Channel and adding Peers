@@ -1,4 +1,3 @@
-
 "The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virutal machines with the 
 following components deployed. 
 1. CA, hyperledger/fabric-ca:x86_64-1.0.1
@@ -68,7 +67,7 @@ Validate that the peers have joined the channel:
   docker exec -it <container-name> /bin/bash 
   peer channel list 
   
-2. SSH into Peer0 
+2. SSH into Peer1 
   ssh azureuser@<Your IP Address> -p 3003 
   docker ps --format "{{.Names}}"
   docker exec -it <container-name> /bin/bash 
