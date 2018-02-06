@@ -1,10 +1,11 @@
-"The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virutal machines with the 
+The hyperledger fabric template "Hyperledger Fabric Single Member Blockchain" on Azure provisions a set of virtual machines with the 
 following components deployed. 
 1. CA, hyperledger/fabric-ca:x86_64-1.0.1
 2. Orderer, hyperledger/fabric-orderer:x86_64-1.0.1
 3. Peers (2 nodes - peer0 and peer1), hyperledger/fabric-peer:x86_64-1.0.1
-all of these on separate virtual machines but within the same virtual network. 
-The template deployment process does not create any channel, so this doc outlines the steps to 
+All of these on separate virtual machines but within the same virtual network. 
+
+The template deployment process does not create any channel, so this doc outlines the steps to:
 1. Create a channel 
 2. Add both the peers to the same channel 
 
@@ -42,7 +43,7 @@ Create the channel, we will use the name "mychannel", you could replace it with 
 
   peer channel create -o <your-prefix>-orderer0:7050 -c mychannel -f channel.tx
 
-this will create the genesis block generally the name of the file will be channelname.block, so in our case it is mychannel.block
+This will create the genesis block generally the name of the file will be channelname.block, so in our case it is mychannel.block
 
 5. Join the Peer0 to the channel:
   peer channel join -b mychannel.block
